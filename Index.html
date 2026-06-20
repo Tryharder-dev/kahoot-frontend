@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Kahoot Bot</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --border: #e9ecef;
+            --primary: #0d6efd;
+            --primary-hover: #0b5ed7;
+            --danger: #dc3545;
+            --danger-hover: #bb2d3b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+            margin-top: 12px;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-error {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="header">
+            <h1>Kahoot Controller</h1>
+            <p>Gerenciador Minimalista de Bots</p>
+        </div>
+
+        <div class="form-group">
+            <label for="pin">PIN do Jogo</label>
+            <input type="number" id="pin" placeholder="Ex: 123456">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="nome_base">Nome Base</label>
+                <input type="text" id="nome_base" value="Bot">
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade</label>
+                <input type="number" id="quantidade" value="10" min="1">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="cor">Cor da Resposta</label>
+                <select id="cor">
+                    <option value="">Aleatório</option>
+                    <option value="vermelho">Vermelho</option>
+                    <option value="azul">Azul</option>
+                    <option value="amarelo">Amarelo</option>
+                    <option value="verde">Verde</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="atraso">Atraso Fixo (segundos)</label>
+                <input type="number" id="atraso" value="1.5" step="0.1" min="0">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="conectarBots()">Injetar Bots</button>
+        <button class="btn btn-danger" onclick="desconectarBots()">Botão de Pânico (Cortar Tudo)</button>
+
+        <div id="status" class="status-box"></div>
+    </div>
+</div>
+
+<script>
+    // Já apontei direto para o link que você conseguiu no Render!
+    const API_BASE_URL = "https://kahoot-backend-rai5.onrender.com";
+
+    function mostrarStatus(mensagem, erro = false) {
+        const box = document.getElementById('status');
+        box.innerText = mensagem;
+        box.style.display = 'block';
+        if (erro) {
+            box.className = 'status-box status-error';
+        } else {
+            box.className = 'status-box status-success';
+        }
+    }
+
+    async function conectarBots() {
+        const pin = document.getElementById('pin').value;
+        const nome_base = document.getElementById('nome_base').value;
+        const quantidade = document.getElementById('quantidade').value;
+        const cor = document.getElementById('cor').value;
+        const atraso = document.getElementById('atraso').value;
+
+        if (!pin) {
+            mostrarStatus("Por favor, digite o PIN do Kahoot.", true);
+            return;
+        }
+
+        mostrarStatus("Enviando comando para os bots...");
+
+        try {
+            const resposta = await fetch(`${API_BASE_URL}/conectar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pin: parseInt(pin),
+                    nome_base: nome_base,
+                    quantidade: parseInt(quantidade),
+                    cor: cor || null,
+                    atraso: parseFloat(atraso)
+                })
+            });
+
+            const dados = await resposta.json();
+            if (dados.status === "sucesso") {
+                mostrarStatus(dados.mensagem);
+            } else {
+                mostrarStatus("Ocorreu um erro no servidor.", true);
+            }
+        } catch (error) {
+            mostrarStatus("Não foi possível conectar ao servidor do Render.", true);
+        }
+    }
+
+    async function desconectarBots() {
+        const pin = document.getElementById('pin').value;
+
+        if (!pin) {
+            mostrarStatus("Digite o PIN correspondente para desconectar.", true);
+            return;
+        }
+
+        mostrarStatus("Acionando modo pânico...");
+
+        try {
+            const resposta = await fetch(`${API_BASE_URL}/desconectar/${pin}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const dados = await resposta.json();
+            mostrarStatus(dados.mensagem, dados.status === "aviso");
+        } catch (error) {
+            mostrarStatus("Não foi possível enviar o comando de desconexão.", true);
+        }
+    }
+</script>
+
+</body>
+</html>
+
