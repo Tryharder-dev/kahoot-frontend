@@ -94,8 +94,14 @@
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="tech-font text-lg font-semibold text-slate-200"><i class="fa-solid fa-gamepad text-emerald-400 mr-2"></i> Controle Ao Vivo</h2>
                 </div>
+
+                <div class="flex gap-2 p-1 bg-slate-900/80 rounded-lg mb-4 border border-slate-800">
+                    <button onclick="mudarModoPergunta('alternativas')" id="btn-modo-alt" class="flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm">4 Alternativas</button>
+                    <button onclick="mudarModoPergunta('vf')" id="btn-modo-vf" class="flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all">Verdadeiro / Falso</button>
+                    <button onclick="mudarModoPergunta('texto')" id="btn-modo-txt" class="flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all">Escrita</button>
+                </div>
                 
-                <div class="grid grid-cols-2 gap-3">
+                <div id="painel-alternativas" class="grid grid-cols-2 gap-3">
                     <button onclick="enviarVoto('vermelho')" class="kahoot-btn kahoot-red">
                         <i class="fa-solid fa-play -rotate-90 text-white text-3xl"></i>
                     </button>
@@ -107,6 +113,24 @@
                     </button>
                     <button onclick="enviarVoto('verde')" class="kahoot-btn kahoot-green">
                         <i class="fa-solid fa-square text-white text-3xl"></i>
+                    </button>
+                </div>
+
+                <div id="painel-vf" class="hidden grid grid-cols-2 gap-3">
+                    <button onclick="enviarVoto('azul')" class="kahoot-btn kahoot-blue flex-col gap-1">
+                        <i class="fa-solid fa-square rotate-45 text-white text-2xl"></i>
+                        <span class="text-white font-bold text-xs uppercase">Verdadeiro</span>
+                    </button>
+                    <button onclick="enviarVoto('vermelho')" class="kahoot-btn kahoot-red flex-col gap-1">
+                        <i class="fa-solid fa-play -rotate-90 text-white text-2xl"></i>
+                        <span class="text-white font-bold text-xs uppercase">Falso</span>
+                    </button>
+                </div>
+
+                <div id="painel-texto" class="hidden flex flex-col gap-3">
+                    <input type="text" id="resposta_texto" placeholder="Digite a resposta exata..." class="w-full bg-slate-950/80 border border-slate-700 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-indigo-500 text-white font-semibold placeholder-slate-600">
+                    <button onclick="enviarVotoTexto()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-all border border-slate-600 shadow-md">
+                        <i class="fa-solid fa-paper-plane mr-2 text-indigo-400"></i> ENVIAR RESPOSTA
                     </button>
                 </div>
             </div>
@@ -136,7 +160,6 @@
         const API_BASE_URL = "https://kahoot-backend-5dfz.onrender.com";
         let botsInjetados = false;
 
-        // Lógica para mostrar/esconder o Painel Live
         document.getElementById('cor').addEventListener('change', function(e) {
             const painelLive = document.getElementById('painel-live');
             if (e.target.value === 'manual') {
@@ -145,6 +168,28 @@
                 painelLive.classList.add('hidden');
             }
         });
+
+        // Função para alternar as abas do Controle Ao Vivo
+        function mudarModoPergunta(modo) {
+            document.getElementById('painel-alternativas').classList.add('hidden');
+            document.getElementById('painel-vf').classList.add('hidden');
+            document.getElementById('painel-texto').classList.add('hidden');
+            
+            document.getElementById('btn-modo-alt').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all shadow-none";
+            document.getElementById('btn-modo-vf').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all shadow-none";
+            document.getElementById('btn-modo-txt').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all shadow-none";
+
+            if (modo === 'alternativas') {
+                document.getElementById('painel-alternativas').classList.remove('hidden');
+                document.getElementById('btn-modo-alt').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm";
+            } else if (modo === 'vf') {
+                document.getElementById('painel-vf').classList.remove('hidden');
+                document.getElementById('btn-modo-vf').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm";
+            } else if (modo === 'texto') {
+                document.getElementById('painel-texto').classList.remove('hidden');
+                document.getElementById('btn-modo-txt').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm";
+            }
+        }
 
         function adicionarLog(mensagem, tipo = 'info') {
             const t = document.getElementById('terminal');
@@ -205,7 +250,7 @@
                 
                 if (data.status === "erro") {
                     adicionarLog(data.mensagem, "erro");
-                    liberarBotao(); // Libera o botão se o PIN for inválido
+                    liberarBotao();
                 } else {
                     adicionarLog(data.mensagem, "sucesso");
                 }
@@ -230,6 +275,27 @@
             }
         }
 
+        async function enviarVotoTexto() {
+            const texto = document.getElementById('resposta_texto').value.trim();
+            if (!texto) {
+                adicionarLog("Digite alguma coisa para enviar!", "erro");
+                return;
+            }
+            adicionarLog(`Comando manual: Enviando resposta escrita "${texto}"...`, "aviso");
+            try {
+                const res = await fetch(`${API_BASE_URL}/votar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ texto: texto })
+                });
+                const data = await res.json();
+                if(data.status === "erro") adicionarLog(data.mensagem, "erro");
+                else adicionarLog(data.mensagem, "sucesso");
+            } catch (err) {
+                adicionarLog("Falha ao enviar comando de texto.", "erro");
+            }
+        }
+
         async function acionarExpulsao() {
             adicionarLog("Comando de expulsão disparado...", "aviso");
             try {
@@ -243,5 +309,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
