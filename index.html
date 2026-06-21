@@ -3,152 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kahoot Quantum Cluster v18</title>
+    <title>Kahoot Quantum Cluster v19</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
-        }
-        .tech-font {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glow-btn:hover {
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
-        }
-        .panic-glow {
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
-        }
-        .panic-glow:hover {
-            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-        /* Custom Scrollbar para o Console */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.2);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617); }
+        .tech-font { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .kahoot-btn { transition: all 0.1s; display: flex; justify-content: center; align-items: center; border-radius: 0.5rem; height: 80px; }
+        .kahoot-red { background-color: #e21b3c; box-shadow: 0 6px 0 #b51530; }
+        .kahoot-blue { background-color: #1368ce; box-shadow: 0 6px 0 #0d4d9b; }
+        .kahoot-yellow { background-color: #d89e00; box-shadow: 0 6px 0 #9a7100; }
+        .kahoot-green { background-color: #26890c; box-shadow: 0 6px 0 #1a6008; }
+        .kahoot-btn:active { transform: translateY(6px); box-shadow: 0 0px 0 transparent; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex items-center justify-center p-4 md:p-8">
 
-    <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-5 gap-6">
+    <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <div class="col-span-1 md:col-span-5 flex flex-col md:flex-row items-center justify-between border-b border-slate-800 pb-4 mb-2">
+        <div class="col-span-1 lg:col-span-12 flex items-center justify-between border-b border-slate-800 pb-4">
             <div class="flex items-center gap-3">
                 <div class="bg-indigo-600 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
                     <i class="fa-solid fa-bolt text-xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="tech-font text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">QUANTUM CLUSTER</h1>
-                    <p class="text-xs text-slate-400">Gerenciador de Conexões em Massa v18</p>
+                    <h1 class="tech-font text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">QUANTUM CLUSTER</h1>
+                    <p class="text-xs text-slate-400">Controle Ao Vivo & Injeção v19</p>
                 </div>
             </div>
-            <div class="mt-4 md:mt-0 flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-800 text-xs">
+            <div class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-800 text-xs">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                 <span class="text-slate-300 font-medium">Servidor Nuvem Ativo</span>
             </div>
         </div>
 
-        <div class="md:col-span-3 glass-panel rounded-2xl p-6 shadow-xl flex flex-col justify-between transition-all duration-300">
+        <div class="lg:col-span-5 glass-panel rounded-2xl p-6 shadow-xl flex flex-col justify-between">
             <div>
                 <h2 class="tech-font text-lg font-semibold mb-4 text-slate-200 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-indigo-400 text-sm"></i> Parâmetros do Cluster
+                    <i class="fa-solid fa-sliders text-indigo-400 text-sm"></i> Preparar Carga
                 </h2>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">PIN do Jogo</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-key absolute left-3 top-3.5 text-slate-500 text-sm"></i>
-                            <input type="number" id="pin" placeholder="Ex: 859302" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:border-indigo-500 transition-colors text-white placeholder-slate-600 font-semibold tracking-wide">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">PIN do Jogo</label>
+                            <input type="number" id="pin" placeholder="Ex: 859302" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Nome Base</label>
+                            <input type="text" id="nome_base" placeholder="Ex: Bot" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Qtd Bots</label>
+                            <input type="number" id="quantidade" placeholder="Max: 50" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Delay (seg)</label>
+                            <input type="text" id="atraso" placeholder="Padrão: 1.5" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Nome Base dos Bots</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-user absolute left-3 top-3.5 text-slate-500 text-sm"></i>
-                            <input type="text" id="nome_base" placeholder="Ex: Player" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:border-indigo-500 transition-colors text-white placeholder-slate-600">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Carga (Qtd de Bots)</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-users absolute left-3 top-3.5 text-slate-500 text-sm"></i>
-                            <input type="number" id="quantidade" placeholder="Max recomendado: 50" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:border-indigo-500 transition-colors text-white placeholder-slate-600">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Delay de Resposta (segundos)</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-stopwatch absolute left-3 top-3.5 text-slate-500 text-sm"></i>
-                            <input type="text" id="atraso" placeholder="Padrão: 1.5" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:border-indigo-500 transition-colors text-white placeholder-slate-600">
-                        </div>
-                    </div>
-
-                    <div class="sm:col-span-2">
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Estratégia de Cor / Alternativa</label>
-                        <select id="cor" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors text-slate-300 font-medium">
-                            <option value="">Aleatória (Garante distribuição de respostas)</option>
-                            <option value="vermelho">Forçar Vermelho (Triângulo)</option>
-                            <option value="azul">Forçar Azul (Losango)</option>
-                            <option value="amarelo">Forçar Amarelo (Círculo)</option>
-                            <option value="verde">Forçar Verde (Quadrado)</option>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Modo de Operação</label>
+                        <select id="cor" class="w-full bg-slate-950/80 border border-indigo-500/50 rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white font-medium shadow-[0_0_10px_rgba(99,102,241,0.2)]">
+                            <option value="manual" class="bg-slate-900 text-emerald-400 font-bold">🎮 MODO MANUAL (Controlar no painel ao lado)</option>
+                            <option value="" class="bg-slate-900">🤖 Automático: Aleatório</option>
+                            <option value="vermelho" class="bg-slate-900 text-red-400">🤖 Automático: Sempre Vermelho</option>
+                            <option value="azul" class="bg-slate-900 text-blue-400">🤖 Automático: Sempre Azul</option>
+                            <option value="amarelo" class="bg-slate-900 text-yellow-400">🤖 Automático: Sempre Amarelo</option>
+                            <option value="verde" class="bg-slate-900 text-green-400">🤖 Automático: Sempre Verde</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <button onclick="dispararCluster()" class="glow-btn mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform active:scale-98 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-indigo-950/50">
-                <i class="fa-solid fa-satellite-dish animate-pulse"></i> Injetar Carga de Bots
+            <button id="btn-injetar" onclick="dispararCluster()" class="mt-6 w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-satellite-dish"></i> INJETAR BOTS
             </button>
         </div>
 
-        <div class="md:col-span-2 flex flex-col gap-4">
+        <div class="lg:col-span-7 flex flex-col gap-4">
             
-            <div class="glass-panel rounded-2xl p-5 shadow-xl border-red-950/30">
-                <button onclick="acionarPanico()" class="panic-glow w-full bg-gradient-to-b from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold py-4 rounded-xl transition-all duration-300 flex flex-col items-center justify-center gap-1 cursor-pointer select-none">
-                    <span class="tech-font text-lg tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-radiation text-xl animate-spin" style="animation-duration: 4s;"></i> BOTÃO DE PÂNICO
-                    </span>
-                    <span class="text-[10px] font-normal text-red-200 tracking-wide">Derrubar conexões na força bruta</span>
-                </button>
+            <div class="glass-panel rounded-2xl p-5 shadow-xl border border-slate-700">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="tech-font text-lg font-semibold text-slate-200"><i class="fa-solid fa-gamepad text-emerald-400 mr-2"></i> Controle Ao Vivo</h2>
+                    <span class="text-[10px] text-slate-400 bg-slate-900 px-2 py-1 rounded">Selecione MODO MANUAL ao injetar</span>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="enviarVoto('vermelho')" class="kahoot-btn kahoot-red">
+                        <i class="fa-solid fa-play -rotate-90 text-white text-3xl"></i>
+                    </button>
+                    <button onclick="enviarVoto('azul')" class="kahoot-btn kahoot-blue">
+                        <i class="fa-solid fa-square rotate-45 text-white text-3xl"></i>
+                    </button>
+                    <button onclick="enviarVoto('amarelo')" class="kahoot-btn kahoot-yellow">
+                        <i class="fa-solid fa-circle text-white text-3xl"></i>
+                    </button>
+                    <button onclick="enviarVoto('verde')" class="kahoot-btn kahoot-green">
+                        <i class="fa-solid fa-square text-white text-3xl"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="glass-panel rounded-2xl p-4 flex-1 shadow-xl flex flex-col h-[235px]">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
-                    <span class="tech-font text-xs font-semibold text-slate-400 tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-terminal text-indigo-400"></i> Terminal do Cluster
-                    </span>
-                    <button onclick="limparTerminal()" class="text-[10px] text-slate-500 hover:text-slate-300 transition-colors">Limpar</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+                <div class="glass-panel rounded-2xl p-4 shadow-xl flex flex-col h-[180px]">
+                    <div class="flex justify-between border-b border-slate-800 pb-2 mb-2">
+                        <span class="tech-font text-xs font-semibold text-slate-400"><i class="fa-solid fa-terminal"></i> Terminal</span>
+                    </div>
+                    <div id="terminal" class="text-[11px] font-mono space-y-1.5 overflow-y-auto flex-1 text-indigo-300">
+                        <div class="text-slate-500">Aguardando comandos...</div>
+                    </div>
                 </div>
-                <div id="terminal" class="text-[11px] font-mono space-y-1.5 overflow-y-auto flex-1 pr-1 text-indigo-300">
-                    <div class="text-slate-500">[SISTEMA] Aguardando inicialização de carga...</div>
-                </div>
+
+                <button onclick="acionarPanico()" class="glass-panel w-full bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 text-white font-bold rounded-2xl transition-all duration-300 flex flex-col items-center justify-center gap-2 cursor-pointer h-[180px]">
+                    <i class="fa-solid fa-radiation text-3xl text-red-500 animate-pulse"></i>
+                    <span class="tech-font text-lg">PÂNICO</span>
+                    <span class="text-xs text-red-300">Resetar e Derrubar Bots</span>
+                </button>
             </div>
 
         </div>
@@ -156,97 +134,97 @@
     </div>
 
     <script>
-        // URL Fixa do seu Backend Estável no Render
         const API_BASE_URL = "https://kahoot-backend-5dfz.onrender.com";
+        let botsInjetados = false; // TRAVA DE SEGURANÇA
 
         function adicionarLog(mensagem, tipo = 'info') {
-            const terminal = document.getElementById('terminal');
-            const linha = document.createElement('div');
-            const hora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const t = document.getElementById('terminal');
+            const l = document.createElement('div');
+            const h = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             
-            let corTexto = 'text-indigo-300';
-            let prefixo = '⚙️';
+            let cor = 'text-indigo-300', pre = '⚙️';
+            if (tipo === 'sucesso') { cor = 'text-emerald-400'; pre = '✅'; }
+            if (tipo === 'erro') { cor = 'text-red-400'; pre = '❌'; }
+            if (tipo === 'aviso') { cor = 'text-amber-400'; pre = '⚠️'; }
 
-            if (tipo === 'sucesso') { corTexto = 'text-emerald-400'; prefixo = '✅'; }
-            if (tipo === 'erro') { corTexto = 'text-red-400'; prefixo = '❌'; }
-            if (tipo === 'aviso') { corTexto = 'text-amber-400'; prefixo = '⚠️'; }
-
-            linha.className = `${corTexto} transition-all duration-200 opacity-0 transform translate-x-[-4px]`;
-            linha.innerHTML = `<span class="text-slate-600 font-sans mr-1">[${hora}]</span> <span class="font-bold">${prefixo}</span> ${mensagem}`;
-            
-            terminal.appendChild(linha);
-            
-            // Força renderização para animação suave de fade-in
-            setTimeout(() => {
-                linha.classList.remove('opacity-0', 'translate-x-[-4px]');
-            }, 10);
-
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        function limparTerminal() {
-            document.getElementById('terminal').innerHTML = '<div class="text-slate-500">[SISTEMA] Console resetado.</div>';
+            l.className = cor;
+            l.innerHTML = `<span class="text-slate-600 mr-1">[${h}]</span> <b>${pre}</b> ${mensagem}`;
+            t.appendChild(l);
+            t.scrollTop = t.scrollHeight;
         }
 
         async function dispararCluster() {
-            const pinVal = document.getElementById('pin').value;
-            const nomeVal = document.getElementById('nome_base').value;
-            const qtdVal = document.getElementById('quantidade').value;
-            const atrasoVal = document.getElementById('atraso').value;
-            const corVal = document.getElementById('cor').value;
-
-            if (!pinVal || !qtdVal) {
-                adicionarLog("Preencha obrigatoriamente o PIN e a Carga de Bots!", "erro");
+            if (botsInjetados) {
+                adicionarLog("BLOQUEADO: Os bots já estão no jogo! Use o Pânico se quiser reiniciar.", "erro");
                 return;
             }
 
-            adicionarLog(`Iniciando injeção em massa para o PIN: ${pinVal}...`, "info");
-
             const payload = {
-                pin: parseInt(pinVal),
-                nome_base: nomeVal.trim() || "Bot",
-                quantidade: parseInt(qtdVal),
-                cor: corVal || null,
-                atraso: atrasoVal ? parseFloat(atrasoVal.replace(',', '.')) : 1.5
+                pin: parseInt(document.getElementById('pin').value),
+                nome_base: document.getElementById('nome_base').value || "Bot",
+                quantidade: parseInt(document.getElementById('quantidade').value),
+                cor: document.getElementById('cor').value || null,
+                atraso: parseFloat(document.getElementById('atraso').value.replace(',', '.') || 1.5)
             };
 
+            if (!payload.pin || !payload.quantidade) {
+                adicionarLog("Preencha PIN e Quantidade!", "erro");
+                return;
+            }
+
+            adicionarLog("Iniciando injeção em massa...", "info");
+            
+            // Ativa a trava para evitar cliques duplos
+            botsInjetados = true;
+            const btn = document.getElementById('btn-injetar');
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.innerHTML = '<i class="fa-solid fa-lock"></i> BOTS EM CAMPO';
+
             try {
-                const response = await fetch(`${API_BASE_URL}/conectar`, {
+                const res = await fetch(`${API_BASE_URL}/conectar`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                
-                const data = await response.json();
-                
-                if (data.status === "sucesso") {
-                    adicionarLog(`Sucesso: ${data.mensagem}`, "sucesso");
-                    adicionarLog(`Micro-escalonamento de rede ativo para burlar proteção do Kahoot.`, "sucesso");
-                } else {
-                    adicionarLog(`Aviso do Servidor: ${data.mensagem}`, "aviso");
-                }
+                const data = await res.json();
+                adicionarLog(data.mensagem, "sucesso");
             } catch (err) {
-                adicionarLog("Falha crítica de comunicação com o cluster em nuvem.", "erro");
+                adicionarLog("Falha na comunicação com o servidor.", "erro");
+                botsInjetados = false; // Libera se deu erro
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> INJETAR BOTS';
+            }
+        }
+
+        async function enviarVoto(corBotao) {
+            adicionarLog(`Comando manual: Enviando bots para a cor ${corBotao.toUpperCase()}...`, "aviso");
+            try {
+                const res = await fetch(`${API_BASE_URL}/votar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cor: corBotao })
+                });
+                const data = await res.json();
+                adicionarLog(data.mensagem, data.status);
+            } catch (err) {
+                adicionarLog("Falha ao enviar comando de voto.", "erro");
             }
         }
 
         async function acionarPanico() {
-            adicionarLog("PROCESSO DE PÂNICO DISPARADO! Solicitando desligamento imediato...", "erro");
-            
+            adicionarLog("PÂNICO ACIONADO! Derrubando...", "erro");
             try {
-                const response = await fetch(`${API_BASE_URL}/desconectar`, {
-                    method: 'POST'
-                });
-                const data = await response.json();
+                const res = await fetch(`${API_BASE_URL}/desconectar`, { method: 'POST' });
+                const data = await res.json();
+                adicionarLog(data.mensagem, "sucesso");
                 
-                if (data.status === "sucesso") {
-                    adicionarLog(data.mensagem, "sucesso");
-                    adicionarLog("Todas as sessões de WebSockets foram expurgadas.", "sucesso");
-                } else {
-                    adicionarLog(data.mensagem, "aviso");
-                }
+                // Libera o botão de injetar novamente
+                botsInjetados = false;
+                const btn = document.getElementById('btn-injetar');
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> INJETAR BOTS';
             } catch (err) {
-                adicionarLog("Erro ao enviar sinal de pânico ao servidor central.", "erro");
+                adicionarLog("Falha no Pânico.", "erro");
             }
         }
     </script>
