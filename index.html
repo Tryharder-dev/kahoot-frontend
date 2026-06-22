@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kahoot Bot</title>
+    <title>Kahoot Bot Control</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,12 +12,14 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617); }
         .tech-font { font-family: 'Space Grotesk', sans-serif; }
         .glass-panel { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .kahoot-btn { transition: all 0.1s; display: flex; justify-content: center; align-items: center; border-radius: 0.5rem; height: 80px; cursor: pointer; }
+        .kahoot-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; justify-content: center; align-items: center; border-radius: 0.75rem; height: 80px; cursor: pointer; }
+        .kahoot-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
         .kahoot-red { background-color: #e21b3c; box-shadow: 0 6px 0 #b51530; }
         .kahoot-blue { background-color: #1368ce; box-shadow: 0 6px 0 #0d4d9b; }
         .kahoot-yellow { background-color: #d89e00; box-shadow: 0 6px 0 #9a7100; }
         .kahoot-green { background-color: #26890c; box-shadow: 0 6px 0 #1a6008; }
         .kahoot-btn:active { transform: translateY(6px); box-shadow: 0 0px 0 transparent; }
+        .puzzle-item { transition: transform 0.3s ease, border-color 0.2s; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
@@ -34,30 +36,30 @@
                 </div>
                 <div>
                     <h1 class="tech-font text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">KAHOOT BOT</h1>
-                    <p class="text-xs text-slate-400">Bot de automação para spam e auto resposta</p>
+                    <p class="text-xs text-slate-400">Controle Remoto de Injeção Avançada</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-800 text-xs">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                <span class="text-slate-300 font-medium">Servidor Nuvem Ativo</span>
+                <span class="text-slate-300 font-medium">Servidor Ativo</span>
             </div>
         </div>
 
         <div class="lg:col-span-5 glass-panel rounded-2xl p-6 shadow-xl flex flex-col justify-between">
             <div>
                 <h2 class="tech-font text-lg font-semibold mb-4 text-slate-200 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-indigo-400 text-sm"></i> Preparar Carga
+                    <i class="fa-solid fa-sliders text-indigo-400 text-sm"></i> Configurar Carga
                 </h2>
                 
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">PIN do Jogo</label>
-                            <input type="number" id="pin" placeholder="Ex: 859302" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white font-semibold">
+                            <input type="number" id="pin" placeholder="Ex: 244885" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white font-semibold">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Nome Base</label>
-                            <input type="text" id="nome_base" placeholder="Ex: Bot" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white">
+                            <input type="text" id="nome_base" placeholder="Ex: Player" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-2 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Qtd Bots</label>
@@ -70,10 +72,10 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Modo de Operação</label>
-                        <select id="cor" class="w-full bg-slate-950/80 border border-indigo-500/50 rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white font-medium shadow-[0_0_10px_rgba(99,102,241,0.2)]">
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Estratégia</label>
+                        <select id="cor" class="w-full bg-slate-950/80 border border-indigo-500/50 rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-indigo-500 text-white font-medium shadow-[0_0_10px_rgba(99,102,241,0.1)]">
                             <option value="" class="bg-slate-900">🤖 Automático: Aleatório</option>
-                            <option value="manual" class="bg-slate-900 text-emerald-400 font-bold">🎮 MODO MANUAL (Controlar no painel)</option>
+                            <option value="manual" class="bg-slate-900 text-emerald-400 font-bold">🎮 MODO MANUAL (Painel do Controle)</option>
                             <option value="vermelho" class="bg-slate-900 text-red-400">🤖 Automático: Sempre Vermelho</option>
                             <option value="azul" class="bg-slate-900 text-blue-400">🤖 Automático: Sempre Azul</option>
                             <option value="amarelo" class="bg-slate-900 text-yellow-400">🤖 Automático: Sempre Amarelo</option>
@@ -95,10 +97,11 @@
                     <h2 class="tech-font text-lg font-semibold text-slate-200"><i class="fa-solid fa-gamepad text-emerald-400 mr-2"></i> Controle Ao Vivo</h2>
                 </div>
 
-                <div class="flex gap-2 p-1 bg-slate-900/80 rounded-lg mb-4 border border-slate-800">
-                    <button onclick="mudarModoPergunta('alternativas')" id="btn-modo-alt" class="flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm cursor-pointer">4 Alternativas</button>
-                    <button onclick="mudarModoPergunta('vf')" id="btn-modo-vf" class="flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer">Verdadeiro / Falso</button>
-                    <button onclick="mudarModoPergunta('texto')" id="btn-modo-txt" class="flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer">Escrita</button>
+                <div class="flex flex-wrap gap-2 p-1 bg-slate-900/80 rounded-lg mb-4 border border-slate-800">
+                    <button onclick="mudarModoPergunta('alternativas')" id="btn-modo-alt" class="flex-1 min-w-[80px] text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all cursor-pointer">Alternativas</button>
+                    <button onclick="mudarModoPergunta('vf')" id="btn-modo-vf" class="flex-1 min-w-[80px] text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer">V / F</button>
+                    <button onclick="mudarModoPergunta('texto')" id="btn-modo-txt" class="flex-1 min-w-[80px] text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer">Escrita</button>
+                    <button onclick="mudarModoPergunta('puzzle')" id="btn-modo-pzl" class="flex-1 min-w-[80px] text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer">Puzzle</button>
                 </div>
                 
                 <div id="painel-alternativas" class="grid grid-cols-2 gap-3">
@@ -128,9 +131,18 @@
                 </div>
 
                 <div id="painel-texto" class="hidden flex flex-col gap-3">
-                    <input type="text" id="resposta_texto" placeholder="Digite a resposta exata..." class="w-full bg-slate-950/80 border border-slate-700 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-indigo-500 text-white font-semibold placeholder-slate-600">
+                    <input type="text" id="resposta_texto" placeholder="Digite a resposta exata..." class="w-full bg-slate-950/80 border border-slate-700 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-indigo-500 text-white font-semibold">
                     <button onclick="enviarVotoTexto()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-all border border-slate-600 shadow-md cursor-pointer">
                         <i class="fa-solid fa-paper-plane mr-2 text-indigo-400"></i> ENVIAR RESPOSTA
+                    </button>
+                </div>
+
+                <div id="painel-puzzle" class="hidden flex flex-col gap-3">
+                    <p class="text-xs text-slate-400">Ordene as peças de cima para baixo (A primeira fica no Topo):</p>
+                    <div id="puzzle-container" class="flex flex-col gap-2">
+                        </div>
+                    <button onclick="enviarVotoPuzzle()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-all shadow-md cursor-pointer">
+                        <i class="fa-solid fa-sort mr-2"></i> DISPARAR ORDENAÇÃO PUZZLE
                     </button>
                 </div>
             </div>
@@ -145,10 +157,10 @@
                     </div>
                 </div>
 
-                <button onclick="acionarExpulsao()" class="glass-panel w-full bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 text-white font-bold rounded-2xl transition-all duration-300 flex flex-col items-center justify-center gap-2 cursor-pointer h-[180px]">
-                    <i class="fa-solid fa-person-walking-arrow-right text-3xl text-red-500"></i>
-                    <span class="tech-font text-lg">EXPULSAR BOTS</span>
-                    <span class="text-xs text-red-300">Sair imediatamente da sala</span>
+                <button onclick="acionarExpulsao()" class="glass-panel w-full bg-red-950/30 hover:bg-red-900/50 border border-red-500/30 text-white font-bold rounded-2xl transition-all duration-300 flex flex-col items-center justify-center gap-2 cursor-pointer h-[180px]">
+                    <i class="fa-solid fa-power-off text-3xl text-red-500 animate-pulse"></i>
+                    <span class="tech-font text-lg">CORTAR ENERGIA DOS BOTS</span>
+                    <span class="text-xs text-red-300">Expulsão imediata via Hardware</span>
                 </button>
             </div>
 
@@ -160,10 +172,19 @@
         const API_BASE_URL = "https://kahoot-backend-5dfz.onrender.com";
         let botsInjetados = false;
 
+        // Estado inicial das peças do Puzzle
+        let puzzleItems = [
+            { id: 0, simbolo: "▲", cor: "bg-red-600/80 border-red-500", defaultText: "Peça Vermelha (Triângulo)" },
+            { id: 1, simbolo: "◆", cor: "bg-blue-600/80 border-blue-500", defaultText: "Peça Azul (Losango)" },
+            { id: 2, simbolo: "●", cor: "bg-amber-600/80 border-amber-500", defaultText: "Peça Amarela (Círculo)" },
+            { id: 3, simbolo: "■", cor: "bg-emerald-600/80 border-emerald-500", defaultText: "Peça Verde (Quadrado)" }
+        ];
+
         document.getElementById('cor').addEventListener('change', function(e) {
             const painelLive = document.getElementById('painel-live');
             if (e.target.value === 'manual') {
                 painelLive.classList.remove('hidden');
+                renderizarPuzzle();
             } else {
                 painelLive.classList.add('hidden');
             }
@@ -173,33 +194,72 @@
             document.getElementById('painel-alternativas').classList.add('hidden');
             document.getElementById('painel-vf').classList.add('hidden');
             document.getElementById('painel-texto').classList.add('hidden');
+            document.getElementById('painel-puzzle').classList.add('hidden');
             
             document.getElementById('btn-modo-alt').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer";
             document.getElementById('btn-modo-vf').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer";
             document.getElementById('btn-modo-txt').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer";
+            document.getElementById('btn-modo-pzl').className = "flex-1 text-[11px] font-bold py-2 rounded text-slate-400 hover:bg-slate-800 transition-all cursor-pointer";
 
             if (modo === 'alternativas') {
                 document.getElementById('painel-alternativas').classList.remove('hidden');
-                document.getElementById('btn-modo-alt').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm cursor-pointer";
+                document.getElementById('btn-modo-alt').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all cursor-pointer shadow-sm";
             } else if (modo === 'vf') {
                 document.getElementById('painel-vf').classList.remove('hidden');
-                document.getElementById('btn-modo-vf').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm cursor-pointer";
+                document.getElementById('btn-modo-vf').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all cursor-pointer shadow-sm";
             } else if (modo === 'texto') {
                 document.getElementById('painel-texto').classList.remove('hidden');
-                document.getElementById('btn-modo-txt').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all shadow-sm cursor-pointer";
+                document.getElementById('btn-modo-txt').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all cursor-pointer shadow-sm";
+            } else if (modo === 'puzzle') {
+                document.getElementById('painel-puzzle').classList.remove('hidden');
+                document.getElementById('btn-modo-pzl').className = "flex-1 text-[11px] font-bold py-2 rounded bg-indigo-600 text-white transition-all cursor-pointer shadow-sm";
+                renderizarPuzzle();
             }
+        }
+
+        function renderizarPuzzle() {
+            const container = document.getElementById('puzzle-container');
+            container.innerHTML = "";
+            puzzleItems.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.className = `puzzle-item flex items-center justify-between p-3 rounded-xl border ${item.cor} text-white gap-3 shadow-md`;
+                row.innerHTML = `
+                    <div class="flex items-center gap-3 flex-1">
+                        <span class="text-xl font-black w-6 text-center tech-font">${item.simbolo}</span>
+                        <input type="text" id="puzzle-label-${item.id}" value="${item.defaultText}" onchange="salvarTextoPuzzle(${item.id}, this.value)" class="bg-black/20 border-b border-transparent focus:border-white/50 px-2 py-0.5 rounded text-sm w-full font-medium focus:outline-none">
+                    </div>
+                    <div class="flex gap-1">
+                        <button onclick="moverPuzzle(${index}, -1)" class="w-8 h-8 rounded bg-white/10 hover:bg-white/20 active:scale-95 flex items-center justify-center text-xs cursor-pointer"><i class="fa-solid fa-arrow-up"></i></button>
+                        <button onclick="moverPuzzle(${index}, 1)" class="w-8 h-8 rounded bg-white/10 hover:bg-white/20 active:scale-95 flex items-center justify-center text-xs cursor-pointer"><i class="fa-solid fa-arrow-down"></i></button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function moverPuzzle(index, direcao) {
+            const novoIndex = index + direcao;
+            if (novoIndex >= 0 && novoIndex < puzzleItems.length) {
+                const temp = puzzleItems[index];
+                puzzleItems[index] = puzzleItems[novoIndex];
+                puzzleItems[novoIndex] = temp;
+                renderizarPuzzle();
+            }
+        }
+
+        function salvarTextoPuzzle(id, valor) {
+            const item = puzzleItems.find(i => i.id === id);
+            if (item) item.defaultText = valor;
         }
 
         function adicionarLog(mensagem, tipo = 'info') {
             const t = document.getElementById('terminal');
             const l = document.createElement('div');
             const h = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            
             let cor = 'text-indigo-300', pre = '⚙️';
             if (tipo === 'sucesso') { cor = 'text-emerald-400'; pre = '✅'; }
             if (tipo === 'erro') { cor = 'text-red-400'; pre = '❌'; }
             if (tipo === 'aviso') { cor = 'text-amber-400'; pre = '⚠️'; }
-
             l.className = cor;
             l.innerHTML = `<span class="text-slate-600 mr-1">[${h}]</span> <b>${pre}</b> ${mensagem}`;
             t.appendChild(l);
@@ -214,11 +274,7 @@
         }
 
         async function dispararCluster() {
-            if (botsInjetados) {
-                adicionarLog("BLOQUEADO: Os bots já estão no jogo! Use o botão de Expulsar Bots para reiniciar.", "erro");
-                return;
-            }
-
+            if (botsInjetados) return;
             const payload = {
                 pin: parseInt(document.getElementById('pin').value),
                 nome_base: document.getElementById('nome_base').value || "Bot",
@@ -226,19 +282,13 @@
                 cor: document.getElementById('cor').value || null,
                 atraso: parseFloat(document.getElementById('atraso').value.replace(',', '.') || 1.5)
             };
-
             if (!payload.pin || !payload.quantidade) {
                 adicionarLog("Preencha PIN e Quantidade!", "erro");
                 return;
             }
-
-            adicionarLog("Verificando PIN e iniciando injeção...", "info");
-            
+            adicionarLog("Sincronizando com a sala...", "info");
             botsInjetados = true;
-            const btn = document.getElementById('btn-injetar');
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
-            btn.innerHTML = '<i class="fa-solid fa-lock"></i> BOTS EM CAMPO';
-
+            document.getElementById('btn-injetar').innerHTML = '<i class="fa-solid fa-lock"></i> BOTS EM SESSÃO';
             try {
                 const res = await fetch(`${API_BASE_URL}/conectar`, {
                     method: 'POST',
@@ -246,23 +296,12 @@
                     body: JSON.stringify(payload)
                 });
                 const data = await res.json();
-                
-                if (data.status === "erro") {
-                    adicionarLog(data.mensagem, "erro");
-                    liberarBotao();
-                } else {
-                    adicionarLog(data.mensagem, "sucesso");
-                }
-            } catch (err) {
-                adicionarLog("Falha na comunicação com o servidor.", "erro");
-                liberarBotao();
-            }
+                if (data.status === "erro") { adicionarLog(data.mensagem, "erro"); liberarBotao(); }
+                else { adicionarLog(data.mensagem, "sucesso"); }
+            } catch { adicionarLog("Falha ao alcançar servidor.", "erro"); liberarBotao(); }
         }
 
-        async function enviarVoto(corBotao, tipoPergunta = 'alternativas') {
-            let rotuloLog = tipoPergunta === 'vf' ? (corBotao === 'azul' ? "VERDADEIRO" : "FALSO") : corBotao.toUpperCase();
-            adicionarLog(`Comando manual enviado: ${rotuloLog}...`, "aviso");
-            
+        async function enviarVoto(corBotao, tipoPergunta) {
             try {
                 const res = await fetch(`${API_BASE_URL}/votar`, {
                     method: 'POST',
@@ -270,23 +309,14 @@
                     body: JSON.stringify({ cor: corBotao, tipo: tipoPergunta })
                 });
                 const data = await res.json();
-                if(data.status === "erro") {
-                    adicionarLog(data.mensagem, "erro");
-                } else {
-                    adicionarLog(data.mensagem, "sucesso");
-                }
-            } catch (err) {
-                adicionarLog("Falha ao injetar comando de voto.", "erro");
-            }
+                if(data.status === "erro") adicionarLog(data.mensagem, "erro");
+                else adicionarLog(data.mensagem, "sucesso");
+            } catch { adicionarLog("Erro de transmissão.", "erro"); }
         }
 
         async function enviarVotoTexto() {
             const texto = document.getElementById('resposta_texto').value.trim();
-            if (!texto) {
-                adicionarLog("Insira o texto para envio!", "erro");
-                return;
-            }
-            adicionarLog(`Comando manual enviado: Texto "${texto}"...`, "aviso");
+            if (!texto) return;
             try {
                 const res = await fetch(`${API_BASE_URL}/votar`, {
                     method: 'POST',
@@ -294,26 +324,34 @@
                     body: JSON.stringify({ texto: texto, tipo: 'texto' })
                 });
                 const data = await res.json();
-                if(data.status === "erro") adicionarLog(data.mensagem, "erro");
-                else adicionarLog(data.mensagem, "sucesso");
-            } catch (err) {
-                adicionarLog("Falha ao injetar comando de texto.", "erro");
-            }
+                adicionarLog(data.mensagem, data.status === "erro" ? "erro" : "sucesso");
+            } catch { adicionarLog("Erro de rede.", "erro"); }
+        }
+
+        async function enviarVotoPuzzle() {
+            // Extrai a ordenação atual gerada pelo usuário baseando-se nos IDs originais das peças
+            const listaOrdenada = puzzleItems.map(item => item.id);
+            adicionarLog(`Injetando sequência ordenada...`, "aviso");
+            try {
+                const res = await fetch(`${API_BASE_URL}/votar`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lista: listaOrdenada, tipo: 'puzzle' })
+                });
+                const data = await res.json();
+                adicionarLog(data.mensagem, "sucesso");
+            } catch { adicionarLog("Falha no ataque Puzzle.", "erro"); }
         }
 
         async function acionarExpulsao() {
-            adicionarLog("Desconectando e resetando sockets do servidor...", "aviso");
+            adicionarLog("Disparando comando de destruição forçada...", "aviso");
             try {
                 const res = await fetch(`${API_BASE_URL}/desconectar`, { method: 'POST' });
                 const data = await res.json();
                 adicionarLog(data.mensagem, "sucesso");
                 liberarBotao();
-            } catch (err) {
-                adicionarLog("Falha ao executar rotina de expulsão.", "erro");
-                liberarBotao();
-            }
+            } catch { adicionarLog("Erro crítico na purga.", "erro"); liberarBotao(); }
         }
     </script>
 </body>
 </html>
-
